@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">CoroutinesPlayground</string>
+
+    <string name="retrofit_error">Network Error</string>
+    <string name="base_error">Ooops… An error occurred</string>
+    <string name="empty_list_error">No results for the given query</string>
+    <string name="network_error">No internet connection</string>
+
+</resources>
