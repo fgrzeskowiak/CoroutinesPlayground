@@ -3,8 +3,10 @@ package com.example.coroutinesplayground.basic
 import arrow.core.Either
 import arrow.core.Left
 import arrow.core.Right
+import arrow.core.Try
 import com.example.coroutinesplayground.api.MoviesService
 import com.example.coroutinesplayground.common.DefaultError
+import com.example.coroutinesplayground.common.EmptyBodyError
 import com.example.coroutinesplayground.common.WrongTokenError
 import com.example.coroutinesplayground.common.toDefaultError
 import com.example.coroutinesplayground.db.TokenDb
@@ -29,10 +31,8 @@ class BasicMoviesDao(
 //    suspend fun getMovies(): Either<DefaultError, MoviesResponse> {
 //        val token = tokenDb.getToken()
 //        return token?.let {
-//            withContext(Dispatchers.IO) {
 //                Try { service.movieList(it) }.toEither { it.toDefaultError() }
-//            }
-//        } ?: Left(EmptyBodyError)
+//        } ?: Left(WrongTokenError)
 //    }
 //
 //    WRONG!

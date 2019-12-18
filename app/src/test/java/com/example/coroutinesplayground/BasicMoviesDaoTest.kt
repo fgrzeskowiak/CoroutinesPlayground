@@ -7,6 +7,8 @@ import com.example.coroutinesplayground.common.WrongTokenError
 import com.example.coroutinesplayground.db.TokenDb
 import io.kotlintest.assertions.arrow.either.shouldBeLeft
 import io.kotlintest.assertions.arrow.either.shouldBeRight
+import io.kotlintest.matchers.collections.shouldBeEmpty
+import io.kotlintest.matchers.collections.shouldNotBeEmpty
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.test.runBlockingTest
@@ -25,9 +27,8 @@ class BasicMoviesDaoTest {
 
     @Test
     fun `test when success THEN movies are not empty`() = runBlockingTest {
-        val dao = dao()
 
-        dao.getMovies().map { it.results.size } shouldBeRight 5
+        dao().getMovies() shouldBeRight { it.results.shouldNotBeEmpty() }
     }
 
     @Test
@@ -35,17 +36,13 @@ class BasicMoviesDaoTest {
         coEvery { service.movieList(match { it != "111" }) } throws Exception()
         coEvery { tokenDb.getToken() } returns "123"
 
-        val dao = dao()
-
-        dao.getMovies().shouldBeLeft()
+        dao().getMovies().shouldBeLeft()
     }
 
     @Test
     fun `test when token in null THEN request fails`() = runBlockingTest {
         coEvery { tokenDb.getToken() } returns null
 
-        val dao = dao()
-
-        dao.getMovies() shouldBeLeft WrongTokenError
+        dao().getMovies() shouldBeLeft WrongTokenError
     }
 }
