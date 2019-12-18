@@ -3,17 +3,12 @@ package com.example.coroutinesplayground.basic
 import arrow.core.Either
 import arrow.core.Left
 import arrow.core.Right
-import arrow.core.Try
 import com.example.coroutinesplayground.api.MoviesService
 import com.example.coroutinesplayground.common.DefaultError
-import com.example.coroutinesplayground.common.EmptyBodyError
+import com.example.coroutinesplayground.common.WrongTokenError
 import com.example.coroutinesplayground.common.toDefaultError
 import com.example.coroutinesplayground.db.TokenDb
 import com.example.coroutinesplayground.models.MoviesResponse
-import com.example.coroutinesplayground.util.toEither
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
-import java.lang.Exception
 
 class BasicMoviesDao(
     private val service: MoviesService,
@@ -28,7 +23,7 @@ class BasicMoviesDao(
                 } catch (e: Exception) {
                     Left(e.toDefaultError())
                 }
-        } ?: Left(EmptyBodyError)
+        } ?: Left(WrongTokenError)
     }
 
 //    suspend fun getMovies(): Either<DefaultError, MoviesResponse> {

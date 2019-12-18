@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.coroutinesplayground.db.Todo
 import kotlinx.coroutines.launch
 
-class TodoPresenter(repository: TodoRepository) : ViewModel() {
+class TodoPresenter(private val repository: TodoRepository) : ViewModel() {
 
     private val todosLiveData = MutableLiveData<List<Todo>>()
 
@@ -15,6 +15,12 @@ class TodoPresenter(repository: TodoRepository) : ViewModel() {
         viewModelScope.launch {
             val newList = repository.insertTodo("dd")
             todosLiveData.postValue(newList)
+        }
+    }
+
+    fun addItem(text: String) {
+        viewModelScope.launch {
+            repository.insertTodo(text)
         }
     }
 
