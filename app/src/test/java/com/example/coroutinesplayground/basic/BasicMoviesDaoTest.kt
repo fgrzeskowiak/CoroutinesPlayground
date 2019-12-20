@@ -15,9 +15,7 @@ import org.junit.Test
 
 class BasicMoviesDaoTest {
     private val service: MoviesService = mockk {
-        coEvery { movieList(any()) } returns createMoviesResponse(
-            5
-        )
+        coEvery { movieList(any()) } returns createMoviesResponse(5)
     }
 
     private val tokenDb: TokenDb = mockk {
