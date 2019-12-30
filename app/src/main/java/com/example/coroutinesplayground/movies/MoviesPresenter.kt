@@ -54,6 +54,6 @@ data class MovieAdapterItem(val id: Int, val title: String, val clickData: Media
     override fun itemId(): Int = id
 
     fun onClick() {
-        clickData.postValue(id)
+        clickData.value = id
     }
 }
