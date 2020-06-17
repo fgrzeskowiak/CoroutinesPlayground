@@ -43,7 +43,6 @@ class MoviesPresenter(private val moviesDao: MoviesDao) : ViewModel() {
             .map { it.fold({ ScreenState.Failed(it) }, { MoviesState.Loaded(it) }) }
             .onStart { emit(ScreenState.Init) }
             .onEach { println("CoroutineContext moviesFlow: $coroutineContext") }
-//            .buffer()
             .asLiveData()
     }
 }
@@ -54,6 +53,6 @@ data class MovieAdapterItem(val id: Int, val title: String, val clickData: Media
     override fun itemId(): Int = id
 
     fun onClick() {
-        clickData.postValue(id)
+        clickData.value = id
     }
 }

@@ -5,6 +5,7 @@ import java.net.UnknownHostException
 
 interface DefaultError
 
+object WrongTokenError : DefaultError
 object EmptyBodyError : DefaultError
 object RetrofitError : DefaultError
 object ProgressError : DefaultError
