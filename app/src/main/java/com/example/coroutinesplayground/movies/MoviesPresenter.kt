@@ -43,7 +43,6 @@ class MoviesPresenter(private val moviesDao: MoviesDao) : ViewModel() {
             .map { it.fold({ ScreenState.Failed(it) }, { MoviesState.Loaded(it) }) }
             .onStart { emit(ScreenState.Init) }
             .onEach { println("CoroutineContext moviesFlow: $coroutineContext") }
-//            .buffer()
             .asLiveData()
     }
 }
